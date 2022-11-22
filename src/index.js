@@ -4,6 +4,8 @@ import Cut from "./Cut"
 import Figure from "./Figure"
 import {defaultFigure} from "./helpers/consts"
 
+console.log('hello')
+
 const placeAndScaleFigure = (p, points, grid) => {
     points = points.map(p => grid.ungridify(p))
 
