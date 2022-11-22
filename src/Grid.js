@@ -21,7 +21,7 @@ export default class Grid {
         return pos.map(e => Math.round(e/this.gap)*this.gap)
     }
 
-    ungrigify(pos) {
+    ungridify(pos) {
         return pos.map(e => e*this.gap)
     }
 }

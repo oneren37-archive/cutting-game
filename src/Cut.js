@@ -1,6 +1,8 @@
-import {collideLineLine} from "p5.collide2d"
+import {collideLineLine} from "./helpers/collide"
+import {filterInPlace} from "./helpers/filter"
 import Line from "./Line"
 import Figure from "./Figure"
+import Point from "./Point"
 
 export default class Cut {
     constructor(grid, figures) {
@@ -33,14 +35,13 @@ export default class Cut {
             newFigures.push(...c)
         })
         this.figures.push(...newFigures)
-        this.figures = figures.filter(f => !f.unused)
-        // this.figures.forEach(f => f.render())
+        filterInPlace(this.figures, f => !f.unused)
         console.log(this.figures)
+        console.log(this.figures.map(f => f.getArea()))
     }
 
     show(p) {
         if (this.isMoving) p.line(...this.startPoint, ...this.pos)
-        // else if (this.isEnded) line(...this.startPoint, ...this.endPoint)
     }
 
     cut(figure) {
@@ -56,9 +57,12 @@ export default class Cut {
             .filter(c => c.collision.x !== false) // нашли все коллизии
         
         if (collisions.length < 2) return 
+        if (collisions.length === 2 
+            && collisions[0].collision.x === collisions[1].collision.x
+            && collisions[0].collision.y === collisions[1].collision.y) return
 
         const isPointsEquals = (p1, p2) => (
-            p1[0] === p2[0] && p1[1] === p2[1]
+            p1 && p2 && p1[0] === p2[0] && p1[1] === p2[1]
         )
 
         const newPoints = []
@@ -110,6 +114,7 @@ export default class Cut {
                 prevNode = currNode
                 currNode = t
             }
+
             lines.push(new Line(...prevNode, ...currNode))
             lines.push(new Line(...currNode, ...entryPoint))
             points.push(currNode)

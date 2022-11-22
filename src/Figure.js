@@ -16,6 +16,7 @@ export default class Figure {
             this.points = points.map(p => new Point(p))
             this.lines = lines
         }
+        this.area = this.getArea()
     }
 
     buildGraph() {
@@ -32,10 +33,29 @@ export default class Figure {
     render(p) {
         this.lines.forEach(line => line.render(p))
         this.points.forEach(point => point.render(p))
+        p.text(
+            `${this.area}`, 
+            Math.round(this.points.reduce((sum, p) => sum+p.x, 0)/this.points.length),
+            Math.round(this.points.reduce((sum, p) => sum+p.y, 0)/this.points.length)
+        )
     }
 
     update() {
         this.lines = this.lines.filter(line => !line.cut)
-        this.render()
+    }
+
+    getArea() {
+        const n = this.points.length
+        let s1 = 0
+        let s2 = 0
+
+        console.log(this.points.map(p => [p.x, p.y]))
+
+        for (let i = 0; i < n-1; i++) {
+            s1 += this.points[i].x*this.points[i+1].y
+            s2 += this.points[i+1].x*this.points[i].y
+        }
+
+        return (Math.abs(s1 - s2 + this.points[n-1].x*this.points[0].y - this.points[0].x*this.points[n-1].y))/2
     }
 }
