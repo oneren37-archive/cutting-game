@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/cutting-game/static/css/main.e9fb0026.css",
-    "main.js": "/cutting-game/static/js/main.598ce0a4.js",
+    "main.js": "/cutting-game/static/js/main.cef9b07c.js",
     "index.html": "/cutting-game/index.html",
     "main.e9fb0026.css.map": "/cutting-game/static/css/main.e9fb0026.css.map",
-    "main.598ce0a4.js.map": "/cutting-game/static/js/main.598ce0a4.js.map"
+    "main.cef9b07c.js.map": "/cutting-game/static/js/main.cef9b07c.js.map"
   },
   "entrypoints": [
     "static/css/main.e9fb0026.css",
-    "static/js/main.598ce0a4.js"
+    "static/js/main.cef9b07c.js"
   ]
 }
