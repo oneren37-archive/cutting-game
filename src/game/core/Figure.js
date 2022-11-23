@@ -49,8 +49,6 @@ export default class Figure {
         let s1 = 0
         let s2 = 0
 
-        console.log(this.points.map(p => [p.x, p.y]))
-
         for (let i = 0; i < n-1; i++) {
             s1 += this.points[i].x*this.points[i+1].y
             s2 += this.points[i+1].x*this.points[i].y

@@ -1,0 +1,23 @@
+.Levels-container {
+    min-height: 100vh;
+    padding: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.level {
+    border: 1px solid white;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.level:hover {
+    transition: 0.2s;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.title {
+    padding: 30px 0;
+}

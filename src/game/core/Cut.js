@@ -5,9 +5,10 @@ import Figure from "./Figure"
 import Point from "./Point"
 
 export default class Cut {
-    constructor(grid, figures) {
+    constructor(grid, figures, onCut) {
         this.grid = grid
         this.figures = figures
+        this.onCut = onCut
 
         this.pos = [0, 0]
         this.startPoint = null
@@ -29,15 +30,18 @@ export default class Cut {
         this.isMoving = false
         this.endPoint = [...this.pos]
         const newFigures = []
+        let cutted = false
         this.figures.forEach(f => {
             const c = this.cut(f)
             if (!c) return 
             newFigures.push(...c)
+            cutted = true
         })
         this.figures.push(...newFigures)
         filterInPlace(this.figures, f => !f.unused)
-        console.log(this.figures)
-        console.log(this.figures.map(f => f.getArea()))
+        if (cutted) {
+            this.onCut(this.figures.map(f => f.area))
+        }
     }
 
     show(p) {
