@@ -21,8 +21,8 @@ export default class Cut {
         this.pos = [...this.grid.gridify([x, y])]
     }
 
-    hadleStart() {
-        this.startPoint = [...this.grid.gridify(this.pos)]
+    hadleStart(x, y) {
+        this.startPoint = [...this.grid.gridify([x, y])]
         this.isMoving = true
     }
 

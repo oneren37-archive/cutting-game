@@ -30,7 +30,7 @@ export const init = (state, onCut) => {
             cut.show(p)
         }
     
-        p.touchStarted = () => cut.hadleStart()
+        p.touchStarted = () => cut.hadleStart(p.mouseX, p.mouseY)
         p.touchEnded = () => cut.handleEnded()
     }
     
