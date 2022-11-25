@@ -24,14 +24,18 @@ const Levels = () => {
         const s = JSON.parse(localStorage.getItem('cuttingData')) || {}
         s[username] = s[username] || new Array(8)
         setScores(s[username])
-        console.log(s[username])
     }, [])
+
+    const logOut = () => {
+        navigate('/')
+    }
 
     return (
         <div className="Levels-container">
             <Container><Row className="justify-content-md-center"><Col xs={11} md={8}>
             <Modal.Dialog xs={12} md={8}>
-            <span>Вы вошли как {username}</span>
+            <span>Вы вошли как {username} <button onClick={logOut}>Выйти</button> </span>
+            
                 <Modal.Header>
                     <Modal.Title className="title">Уровни</Modal.Title>
                 </Modal.Header>
@@ -56,8 +60,13 @@ const Levels = () => {
                     )).filter(e => e)}
                 </div>
                 </Modal.Body>
+                {scores && scores.length && <span>Сумма очков - {scores.reduce((acc, cur) => acc+cur, 0)}</span>}
+                <button onClick={() => navigate('/raiting')}>Отрыть рейтинг игроков</button>
             </Modal.Dialog>
-            </Col></Row></Container>
+            </Col></Row>
+            
+            </Container>
+            
         </div>
     )
 }

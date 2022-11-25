@@ -6,7 +6,8 @@ export const levels = [
             [30, 40],
             [10, 40]
         ],
-        cutsCount: 2,
+        cutsCount: 4,
+        cutsLimit: 2,
         timeLimit: 15
     },
     {

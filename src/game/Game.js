@@ -11,12 +11,12 @@ import './Game.css'
 const Game = () => {
     const { state } = useLocation();
     const { data, level } = state;
-    console.log(state)
     
     const {username} = useContext(ctx);
     const navigate = useNavigate();
 
     const [cutsCount, cutsCountRef, setCutsCount] = useReferredState(0);
+    const [cutsLimit, cutsLimitRef, setCutsLimit] = useReferredState(null);
     const [partsCount, partsCountRef, setPartsCount] = useReferredState(1);
     const [timeLeft, timeLeftRef, setTimeLeft] = useReferredState(data.timeLimit)
     const [isEnded, setIsEnded] = useState(false)
@@ -43,6 +43,7 @@ const Game = () => {
 
     useEffect(() => {
         if (!username) navigate('/')
+        setCutsLimit(data.cutsLimit)
         init(data, handleCut)
         return () => unmountCanvas()
     }, [])
@@ -64,14 +65,17 @@ const Game = () => {
         setIsEnded(true)
     }
    
-    const handleCut = (areas) => {
+    const handleCut = (areas, cutsCnt) => {
         const partsCnt = areas.length
         setCutsCount(cutsCountRef.current+1)
         setPartsCount(partsCnt)
-        if (partsCnt > data.cutsCount) {
+        if (cutsCnt > data.cutsLimit) {
+            handleEnd(false, 'Cлишком много разрезов')
+        }
+        else if (partsCnt > data.cutsCount) {
             handleEnd(false, 'Cлишком много частей')
         }
-        if (partsCnt === data.cutsCount) {
+        else if (partsCnt === data.cutsCount) {
             handleEnd(true, `Вы набрали ${getScore(areas)} очков`, getScore(areas))
         }
     }
@@ -114,7 +118,7 @@ const Game = () => {
                 <Modal.Header closeButton>
                 <Modal.Title>Правила уровня</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Вам нужно разрезать данную фигугу на {data.cutsCount} за {data.timeLimit} секунд</Modal.Body>
+                <Modal.Body>Вам нужно разрезать данную фигугу на {data.cutsCount} за {data.timeLimit} секунд. {cutsLimit && (<>лимит разрезов - {cutsLimit}</>)}</Modal.Body>
                 <Modal.Footer>
                 <Button variant="primary" onClick={() => setIsStarted(true)}>
                     Понятно

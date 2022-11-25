@@ -10,6 +10,8 @@ export default class Cut {
         this.figures = figures
         this.onCut = onCut
 
+        this.cutsCnt = 0
+
         this.pos = [0, 0]
         this.startPoint = null
         this.endPoint = null
@@ -40,7 +42,8 @@ export default class Cut {
         this.figures.push(...newFigures)
         filterInPlace(this.figures, f => !f.unused)
         if (cutted) {
-            this.onCut(this.figures.map(f => f.area))
+            this.cutsCnt += 1
+            this.onCut(this.figures.map(f => f.area), this.cutsCnt)
         }
     }
 
