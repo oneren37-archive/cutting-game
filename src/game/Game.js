@@ -88,7 +88,7 @@ const Game = () => {
 
     return (
         <div className="interface">
-            <button onClick={onExit}>Выйти</button>
+            <Button variant="secondary" onClick={onExit}>Выйти</Button>
             <div className="cuts-count">
                 <span>{cutsCount}</span> разрезов
             </div>

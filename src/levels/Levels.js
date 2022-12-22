@@ -3,6 +3,7 @@ import { ctx } from '../context'
 import { useEffect, useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
+import { Button } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -34,7 +35,10 @@ const Levels = () => {
         <div className="Levels-container">
             <Container><Row className="justify-content-md-center"><Col xs={11} md={8}>
             <Modal.Dialog xs={12} md={8}>
-            <span>Вы вошли как {username} <button onClick={logOut}>Выйти</button> </span>
+            <span>
+                <div>Вы вошли как {username}</div> 
+                <Button variant="secondary" onClick={logOut}>Выйти</Button>
+            </span>
             
                 <Modal.Header>
                     <Modal.Title className="title">Уровни</Modal.Title>
@@ -61,8 +65,9 @@ const Levels = () => {
                 </div>
                 </Modal.Body>
                 {scores && scores.length && <span>Сумма очков - {scores.reduce((acc, cur) => acc+cur, 0)}</span>}
-                <button onClick={() => navigate('/raiting')}>Отрыть рейтинг игроков</button>
+                
             </Modal.Dialog>
+            <Button variant="primary" onClick={() => navigate('/raiting')}>Отрыть рейтинг игроков</Button>  
             </Col></Row>
             
             </Container>
